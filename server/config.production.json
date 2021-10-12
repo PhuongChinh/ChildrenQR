@@ -1,0 +1,28 @@
+{
+  "restApiRoot": "/sdb/api/v1",
+  "host": "0.0.0.0",
+  "port": 5052,
+  "cookieSecure": true,
+  "cookieHttpOnly": true,
+  "cookieSecret": "IjoiVEVTLUFNTqwsxIqdfgjkuOUCVBS345tIC0gR0RDPG5gdlkrd()#$CFVBN",
+  "swagger": {
+    "protocol": "https"
+  },
+  "remoting": {
+    "context": false,
+    "rest": {
+      "handleErrors": false,
+      "normalizeHttpPath": false,
+      "xml": false
+    },
+    "json": {
+      "strict": false,
+      "limit": "1024kb"
+    },
+    "urlencoded": {
+      "extended": true,
+      "limit": "1024kb"
+    },
+    "cors": false
+  }
+}

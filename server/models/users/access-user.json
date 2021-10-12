@@ -1,0 +1,290 @@
+{
+  "name": "AccessUser",
+  "plural": "users",
+  "base": "User",
+  "idInjection": false,
+  "forceId": true,
+  "strict": true,
+  "options": {
+    "validateUpsert": true,
+    "mysql": {
+      "table": "access_user"
+    }
+  },
+  "postgresql": {
+    "schema": "public",
+    "table": "access_user"
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "generated": true,
+      "description": "The identifier ID of record of the database table, it is required by loopback framework"
+    },
+    "username": {
+      "type": "string",
+      "required": true,
+      "index": {
+        "unique": true
+      },
+      "description": "The user's username, this uses to authenticate",
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 128
+      }
+    },
+    "email": {
+      "type": "string",
+      "required": true,
+      "index": {
+        "unique": true
+      },
+      "description": "The user's email address",
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 64
+      }
+    },
+    "password": {
+      "type": "string",
+      "required": true,
+      "description": "The user's password, this uses to authenticate",
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 256
+      }
+    },
+    "name": {
+      "type": "string",
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 256
+      }
+    },
+    "phone": {
+      "type": "string",
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 64
+      }
+    },
+    "lastLogin": {
+      "type": "date"
+    },
+    "loginFailedTimes": {
+      "type": "number",
+      "default": "0",
+      "postgresql": {
+        "dataType": "integer"
+      }
+    },
+    "activated": {
+      "type": "boolean",
+      "default": "true"
+    },
+    "updated": {
+      "type": "date",
+      "defaultFn": "now",
+      "description": "Last updated time of this record"
+    },
+    "created": {
+      "type": "date",
+      "defaultFn": "now",
+      "description": "The created time of this record"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "accessTokens": {
+      "type": "hasMany",
+      "model": "AccessToken",
+      "foreignKey": "userId",
+      "options": {
+        "disableInclude": true
+      }
+    },
+    "roles": {
+      "type": "hasMany",
+      "model": "AccessRole",
+      "foreignKey": "principalId",
+      "through": "AccRoleMapping",
+      "keyThrough": "roleId"
+    },
+    "teachers": {
+      "type": "hasMany",
+      "model": "Teacher",
+      "foreignKey": "userId",
+      "through": "TeacherUser",
+      "keyThrough": "teacherId"
+    },
+    "students": {
+      "type": "hasMany",
+      "model": "Student",
+      "foreignKey": "userId",
+      "through": "StudentUser",
+      "keyThrough": "studentId"
+    },
+    "schoolParents": {
+      "type": "hasMany",
+      "model": "School",
+      "foreignKey": "userId",
+      "through": "SchoolParentUser",
+      "keyThrough": "schoolId"
+    },
+    "studentParents": {
+      "type": "hasMany",
+      "model": "Student",
+      "foreignKey": "userId",
+      "through": "SchoolParentUser",
+      "keyThrough": "studentId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "property": "authen",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "property": "sendMail",
+      "principalType": "ROLE",
+      "accessType": "EXECUTE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "property": "refreshToken",
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "property": "changePassword",
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    },
+    {
+      "property": "setAccessRole",
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "property": "setUserPassword",
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {
+    "setAccessRole": {
+      "description": "set user role",
+      "accepts": [
+        {
+          "arg": "id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "arg": "newRole",
+          "type": "string"
+        },
+        {
+          "arg": "removeRole",
+          "type": "string"
+        },
+        {
+          "arg": "req",
+          "type": "object",
+          "http": {
+            "source": "req"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true
+        }
+      ],
+      "http": {
+        "path": "/setting/role",
+        "verb": "post"
+      }
+    },
+    "setUserPassword": {
+      "description": "set user password",
+      "accepts": [
+        {
+          "arg": "id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "arg": "password",
+          "type": "string",
+          "required": true
+        },
+        {
+          "arg": "options",
+          "type": "object",
+          "http": "optionsFromRequest"
+        }
+      ],
+      "returns": [],
+      "http": {
+        "path": "/setting/passwd",
+        "verb": "post"
+      }
+    },
+    "authen": {
+      "description": "Authenticate a user with username/email and password.",
+      "accepts": [
+        {
+          "arg": "credentials",
+          "type": "object",
+          "required": true,
+          "http": {
+            "source": "body"
+          }
+        }
+      ],
+      "returns": {
+        "arg": "accessToken",
+        "type": "object",
+        "root": true,
+        "description": "The response body contains properties of the {{AccessToken}} created on login. Depending on the value of `include` parameter, the body may contain additional properties: `user` Data of the currently logged in user. {{(`include=user`)}}"
+      },
+      "http": {
+        "path": "/authen",
+        "verb": "post"
+      }
+    }
+  }
+}

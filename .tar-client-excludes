@@ -1,0 +1,16 @@
+*.development.js*
+*.ts*
+._*.*
+logs/
+node_modules/
+bower_components/
+scripts/
+data/
+server/
+vldap/
+client/
+client/node_modules
+client/src
+target/
+dist/
+package-lock.json

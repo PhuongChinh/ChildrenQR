@@ -1,0 +1,87 @@
+{
+  "name": "SchoolAddress",
+  "plural": "schooladdress",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true,
+    "mysql": {
+      "table": "school_address"
+    }
+  },
+  "postgresql": {
+    "schema": "public",
+    "table": "school_address"
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "generated": true,
+      "description": "The identifier ID of record of the database table, it is required by loopback framework"
+    },
+    "schoolId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "countryId": {
+      "type": "number"
+    },
+    "provinceId": {
+      "type": "number"
+    },
+    "districtId": {
+      "type": "number"
+    },
+    "wardId": {
+      "type": "number"
+    },
+    "address": {
+      "type": "string",
+      "length": 254
+    },
+    "createdTime": {
+      "type": "date",
+      "defaultFn": "now"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "country": {
+      "type": "belongsTo",
+      "model": "Country",
+      "foreignKey": "countryId"
+    },
+    "province": {
+      "type": "belongsTo",
+      "model": "Province",
+      "foreignKey": "provinceId"
+    },
+    "district": {
+      "type": "belongsTo",
+      "model": "District",
+      "foreignKey": "districtId"
+    },
+    "ward": {
+      "type": "belongsTo",
+      "model": "Ward",
+      "foreignKey": "wardId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

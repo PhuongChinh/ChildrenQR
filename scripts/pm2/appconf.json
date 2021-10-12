@@ -1,0 +1,30 @@
+{
+  "apps": [
+    {
+      "name": "SMG-PORTAL",
+      "script": "server/server.js",
+      "args": [],
+      "watch": false,
+      "node_args": "--harmony",
+      "merge_logs": true,
+      "cwd": "/home/ubuntu/GDCTeam/smg-portal/",
+      "instances": 1,
+      "exec_mode": "cluster_mode",
+      "error_file": "./logs/err.log",
+      "out_file": "./logs/out.log",
+      "pid_file": "./logs/smg.pid",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "env_production": {
+        "NODE_ENV": "production"
+      },
+      "env_stage": {
+        "NODE_ENV": "stage"
+      },
+      "env_development": {
+        "NODE_ENV": "development"
+      }
+    }
+  ]
+}
