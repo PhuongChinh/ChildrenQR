@@ -6,7 +6,8 @@
       "../common/models",
       "./models/masters",
       "./models/users",
-      "./models/login-map",
+      "./models/qr-code",
+      "./models/profile",
       "./models"
     ],
     "mixins": [
@@ -38,17 +39,6 @@
     "dataSource": "db",
     "public": false
   },
-  "AccRoleMapping": {
-    "dataSource": "db",
-    "public": false,
-    "options": {
-      "strictObjectIDCoercion": true
-    }
-  },
-  "AccessRole": {
-    "dataSource": "db",
-    "public": true
-  },
   "Email": {
     "dataSource": "mailTransport",
     "public": false
@@ -69,40 +59,12 @@
     "dataSource": "db",
     "public": false
   },
-  "School": {
+  "QRCode": {
     "dataSource": "db",
     "public": true
   },
-  "SchoolAddress": {
-    "dataSource": "db",
-    "public": false
-  },
-  "Teacher": {
+  "ChildProfile": {
     "dataSource": "db",
     "public": true
-  },
-  "SchoolTeacher": {
-    "dataSource": "db",
-    "public": false
-  },
-  "Student": {
-    "dataSource": "db",
-    "public": true
-  },
-  "Parent": {
-    "dataSource": "db",
-    "public": false
-  },
-  "SchoolParentUser": {
-    "dataSource": "db",
-    "public": false
-  },
-  "StudentUser": {
-    "dataSource": "db",
-    "public": false
-  },
-  "TeacherUser": {
-    "dataSource": "db",
-    "public": false
   }
 }

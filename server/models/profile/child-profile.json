@@ -1,0 +1,107 @@
+{
+  "name": "ChildProfile",
+  "plural": "childProfiles",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "generated": true,
+      "description": "The identifier ID of record of the database table, it is required by loopback framework"
+    },
+    "childName": {
+      "type": "string",
+      "length": 128,
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 128
+      }
+    },
+    "fatherName": {
+      "type": "string",
+      "length": 128,
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 128
+      }
+    },
+    "fatherPhoneNumber": {
+      "type": "string",
+      "length": 20,
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 20
+      }
+    },
+    "fatherEmail": {
+      "type": "string",
+      "length": 128,
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 128
+      }
+    },
+    "motherName": {
+      "type": "string",
+      "length": 128,
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 128
+      }
+    },
+    "motherEmail": {
+      "type": "string",
+      "length": 128,
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 128
+      }
+    },
+    "motherPhoneNumber": {
+      "type": "string",
+      "length": 20,
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 20
+      }
+    },
+    "address": {
+      "type": "string",
+      "length": 512,
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 512
+      }
+    },
+    "note": {
+      "type": "string",
+      "length": 512,
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 512
+      }
+    },
+    "updatedTime": {
+      "type": "date",
+      "defaultFn": "now"
+    },
+    "createdTime": {
+      "type": "date",
+      "defaultFn": "now"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "qrCode": {
+      "type": "hasMany",
+      "model": "QRCode",
+      "foreignKey": "profileId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

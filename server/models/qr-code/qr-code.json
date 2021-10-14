@@ -1,0 +1,62 @@
+{
+  "name": "QRCode",
+  "plural": "qrCodes",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "generated": true,
+      "description": "The identifier ID of record of the database table, it is required by loopback framework"
+    },
+    "code": {
+      "type": "string",
+      "length": 24,
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 24
+      }
+    },
+    "profileId": {
+      "type": "number"
+    },
+    "password": {
+      "type": "string",
+      "length": 256,
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 256
+      }
+    },
+    "status": {
+      "type": "string",
+      "length": 24,
+      "postgresql": {
+        "dataType": "character varying",
+        "dataLength": 24
+      }
+    },
+    "updatedTime": {
+      "type": "date",
+      "defaultFn": "now"
+    },
+    "createdTime": {
+      "type": "date",
+      "defaultFn": "now"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "childProfile": {
+      "type": "belongsTo",
+      "model": "ChildProfile",
+      "foreignKey": "profileId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

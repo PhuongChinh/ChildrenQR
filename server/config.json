@@ -1,5 +1,5 @@
 {
-  "restApiRoot": "/sdb/api/v1",
+  "restApiRoot": "/childCode/api/v1",
   "host": "0.0.0.0",
   "port": 5052,
   "cookieSecret": "N1XUT7HMXxEr3qAEZb7BZXH8pn2kvcuFqSQBlHoxKlqsOZfCLCzwpJxqO3iocecn",
